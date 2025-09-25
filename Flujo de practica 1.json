@@ -1,0 +1,2021 @@
+{
+    "id": 1757090670143277,
+    "name": "flujo de practica",
+    "description": "",
+    "status": "stopped",
+    "publishedBy": 901684,
+    "publishedAt": 1758814474327,
+    "updatedAt": 1758815616587,
+    "createdBy": 901684,
+    "createdAt": 1757090670143,
+    "connectedToWorkflows": [],
+    "settings": {
+        "exitCondition": {
+            "incomingMessage": false,
+            "outgoingMessage": false,
+            "manualAssignment": false
+        },
+        "manualEjection": true
+    },
+    "workflow": [
+        {
+            "id": 1,
+            "parentId": -1,
+            "type": "trigger",
+            "data": {
+                "type": "conversationOpened",
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "",
+                            "field": "",
+                            "value": "",
+                            "operator": ""
+                        }
+                    ]
+                },
+                "oncePerContact": false
+            }
+        },
+        {
+            "name": "Fecha y hora #1",
+            "id": "6f63b8",
+            "type": "dateTime",
+            "data": {
+                "condition": "isWithin",
+                "times": [
+                    {
+                        "startTime": "08:00",
+                        "disabled": false,
+                        "endTime": "17:00",
+                        "day": "mon"
+                    },
+                    {
+                        "startTime": "08:00",
+                        "disabled": false,
+                        "endTime": "17:00",
+                        "day": "tue"
+                    },
+                    {
+                        "startTime": "08:00",
+                        "disabled": false,
+                        "endTime": "17:00",
+                        "day": "wed"
+                    },
+                    {
+                        "startTime": "08:00",
+                        "disabled": false,
+                        "endTime": "17:00",
+                        "day": "thu"
+                    },
+                    {
+                        "startTime": "08:00",
+                        "disabled": false,
+                        "endTime": "17:00",
+                        "day": "fri"
+                    },
+                    {
+                        "startTime": "08:00",
+                        "disabled": true,
+                        "endTime": "17:00",
+                        "day": "sat"
+                    },
+                    {
+                        "startTime": "09:00",
+                        "disabled": true,
+                        "endTime": "17:00",
+                        "day": "sun"
+                    }
+                ],
+                "connectors": [
+                    "9791d8",
+                    "6749c7"
+                ],
+                "startDateTime": null,
+                "timezone": "America/Guatemala",
+                "action": "businessHours",
+                "endDateTime": null
+            },
+            "parentId": 1
+        },
+        {
+            "name": "Success",
+            "id": "9791d8",
+            "type": "dateTimeConnector",
+            "data": {
+                "connectorType": "success"
+            },
+            "parentId": "6f63b8"
+        },
+        {
+            "name": "Failure",
+            "id": "6749c7",
+            "type": "dateTimeConnector",
+            "data": {
+                "connectorType": "failure"
+            },
+            "parentId": "6f63b8"
+        },
+        {
+            "name": "Enviar un mensaje #1",
+            "id": "520438",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Gracias por contactar con respond.io, es un gusto atenderte.😁"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "9791d8"
+        },
+        {
+            "name": "Hacer una pregunta #1",
+            "id": "3a6dc5",
+            "type": "askQuestion",
+            "data": {
+                "connectors": [
+                    "c2924e",
+                    "4dc833"
+                ],
+                "question": {
+                    "options": [
+                        "Bot 🤖",
+                        "Agente"
+                    ],
+                    "type": "multiple",
+                    "text": "¿Quieres hablar con bot o con un\nagente?"
+                },
+                "saveResponse": {
+                    "field": null,
+                    "variable": "Agentes",
+                    "tag": false
+                },
+                "timeout": {
+                    "value": 7,
+                    "unit": "days"
+                }
+            },
+            "parentId": "8d2254"
+        },
+        {
+            "name": "Success",
+            "id": "c2924e",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "success"
+            },
+            "parentId": "3a6dc5"
+        },
+        {
+            "name": "Failure: Invalid",
+            "id": "4dc833",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "failure"
+            },
+            "parentId": "3a6dc5"
+        },
+        {
+            "name": "Enviar un mensaje #2",
+            "id": "8d2254",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Por favor selecciona una de las siguientes opciones. 👇"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "520438"
+        },
+        {
+            "name": "Rama #1",
+            "id": "84df3f",
+            "type": "branch",
+            "data": {
+                "connectors": [
+                    "1f79ec",
+                    "e5cd16",
+                    "8909f9"
+                ]
+            },
+            "parentId": "c2924e"
+        },
+        {
+            "name": "Enviar un mensaje #3",
+            "id": "cbb006",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Selecciona una de las opciones que se mencionan"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "4dc833"
+        },
+        {
+            "name": "Cerrar conversación #1",
+            "id": "7f42ec",
+            "type": "closeConversation",
+            "data": {
+                "category": "Información",
+                "summary": "No estamos disponibles en este momento gracias"
+            },
+            "parentId": "2516b9"
+        },
+        {
+            "name": "Asignar a #1",
+            "id": "a93e1f",
+            "type": "assignTo",
+            "data": {
+                "connectors": [
+                    "9f073a"
+                ],
+                "onlyUsersContactsLess": null,
+                "teamId": null,
+                "userId": null,
+                "assignmentLogic": "RoundRobin",
+                "onlyOnlineUsers": true,
+                "assignTo": "spaceUser",
+                "timeout": {
+                    "value": 7,
+                    "unit": "days"
+                }
+            },
+            "parentId": "e5cd16"
+        },
+        {
+            "name": "Success",
+            "id": "9f073a",
+            "type": "assignToConnector",
+            "data": {
+                "connectorType": "success"
+            },
+            "parentId": "a93e1f"
+        },
+        {
+            "name": "Hacer una pregunta #2",
+            "id": "e8a3d5",
+            "type": "askQuestion",
+            "data": {
+                "connectors": [
+                    "594e89",
+                    "b82674"
+                ],
+                "question": {
+                    "options": [
+                        "Quiero Información",
+                        "Agendar reunión",
+                        "Hablar con técnico.",
+                        "Quiero una Demo",
+                        "Una cotización"
+                    ],
+                    "buttonText": "Menú Principal",
+                    "text": "Por favor Selecciona una de las siguientes opciones.",
+                    "type": "multiple"
+                },
+                "saveResponse": {
+                    "field": null,
+                    "variable": "pregunta2",
+                    "tag": false
+                },
+                "timeout": {
+                    "value": 7,
+                    "unit": "days"
+                }
+            },
+            "parentId": "9f073a"
+        },
+        {
+            "name": "Success",
+            "id": "594e89",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "success"
+            },
+            "parentId": "e8a3d5"
+        },
+        {
+            "name": "Failure: Invalid",
+            "id": "b82674",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "failure"
+            },
+            "parentId": "e8a3d5"
+        },
+        {
+            "name": "Saltar a otro paso #1",
+            "id": "180cd4",
+            "type": "jumpTo",
+            "data": {
+                "stepId": "3a6dc5",
+                "maxJumps": 1
+            },
+            "parentId": "cbb006"
+        },
+        {
+            "name": "Enviar un mensaje #4",
+            "id": "80dad9",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Selecciona una de las opciones que se mencionan 👇"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "b82674"
+        },
+        {
+            "name": "Saltar a otro paso #2",
+            "id": "3487f7",
+            "type": "jumpTo",
+            "data": {
+                "stepId": "e8a3d5",
+                "maxJumps": 1
+            },
+            "parentId": "80dad9"
+        },
+        {
+            "name": "Rama #2",
+            "id": "824a4a",
+            "type": "branch",
+            "data": {
+                "connectors": [
+                    "92dc5f",
+                    "5f47be",
+                    "cb599b",
+                    "56ca49",
+                    "08c8b3",
+                    "1bd71d"
+                ]
+            },
+            "parentId": "594e89"
+        },
+        {
+            "name": "Rama 1",
+            "id": "92dc5f",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "variable",
+                            "field": "pregunta2",
+                            "value": "Una cotización",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "824a4a"
+        },
+        {
+            "name": "Rama 2",
+            "id": "cb599b",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "variable",
+                            "field": "pregunta2",
+                            "value": "Agendar reunión",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "824a4a"
+        },
+        {
+            "name": "Rama 3",
+            "id": "56ca49",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "variable",
+                            "field": "pregunta2",
+                            "value": "Hablar con técnico.",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "824a4a"
+        },
+        {
+            "name": "Rama 4",
+            "id": "08c8b3",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "variable",
+                            "field": "pregunta2",
+                            "value": "Quiero una Demo",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "824a4a"
+        },
+        {
+            "name": "Rama 5",
+            "id": "1bd71d",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "variable",
+                            "field": "pregunta2",
+                            "value": "Quiero Información",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "824a4a"
+        },
+        {
+            "name": "Else",
+            "id": "5f47be",
+            "type": "branchConnector",
+            "data": {
+                "conditions": null
+            },
+            "parentId": "824a4a"
+        },
+        {
+            "name": "Enviar un mensaje #5",
+            "id": "4e515e",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Para crear tu cotización, necesitamos los siguientes datos:\n\n1. Nombre completo\n2. Correo electrónico\n3. Número de teléfono\n\nPor favor, envíanos esta información para poder contactarte y preparar una propuesta personalizada. ¡Gracias!"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "92dc5f"
+        },
+        {
+            "name": "Enviar un mensaje #6",
+            "id": "959b6d",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Estamos emocionados de colaborar contigo. Por favor, usa este enlace para programar una reunión, y juntos podremos explorar las mejores soluciones para tus dudas. 😁"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "cb599b"
+        },
+        {
+            "name": "Enviar un mensaje #7",
+            "id": "dd381a",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Entendido, te pondré en contacto con nuestro equipo técnico. Para que la atención sea lo más rápida y efectiva posible, es de gran ayuda que el técnico tenga toda la información a la mano.\n\n¿Podrías, por favor, compartirnos estos datos? Así, cuando se contacten contigo, podrán ir directo a la solución:\n\n1. Nombre completo de la empresa\n\n2. El correo electrónico que usan para su cuenta de Respond.io\n\n3. Una descripción general de lo que necesitas"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "56ca49"
+        },
+        {
+            "name": "Enviar un mensaje #9",
+            "id": "c06121",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Cree su cuenta en Respond.io y obtenga acceso inmediato a una demo de la plataforma en este link. 😉"
+                        },
+                        "channelId": null
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "08c8b3"
+        },
+        {
+            "name": "Enviar un mensaje #10",
+            "id": "224159",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "En este link podrás tener acceso a una llamada gratuita para que puedas tener mas información 😉"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "1bd71d"
+        },
+        {
+            "name": "Enviar un mensaje #11",
+            "id": "204a4d",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Por favor selecciona una de las opciones que se mencionan 👇"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "5f47be"
+        },
+        {
+            "name": "Saltar a otro paso #3",
+            "id": "fdacd1",
+            "type": "jumpTo",
+            "data": {
+                "stepId": "e8a3d5",
+                "maxJumps": 1
+            },
+            "parentId": "204a4d"
+        },
+        {
+            "name": "Enviar un mensaje #12",
+            "id": "9bd89b",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Una vez que completes los datos, te haremos llegar una propuesta detallada. 😉"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "4e515e"
+        },
+        {
+            "name": "Enviar un mensaje #13",
+            "id": "53a123",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "https://meet.brevo.com/carloschavez-ressponde/reunion-de-30-minutos"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "959b6d"
+        },
+        {
+            "name": "Enviar un mensaje #14",
+            "id": "7b46f5",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Una vez que completes tus datos. En breve, un técnico revisará tu caso y te contactará para ayudarte con tu solicitud\n 😁"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "dd381a"
+        },
+        {
+            "name": "Enviar un mensaje #15",
+            "id": "64ebfc",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "https://meet.brevo.com/carloschavez-ressponde/llamada-de-orientacion-gratuita\n\nllamada de orientación gratuita 😁"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "224159"
+        },
+        {
+            "name": "Esperar #2",
+            "id": "d31e6c",
+            "type": "wait",
+            "data": {
+                "value": 1,
+                "unit": "seconds"
+            },
+            "parentId": "9bd89b"
+        },
+        {
+            "name": "Hacer una pregunta #3",
+            "id": "9ac18e",
+            "type": "askQuestion",
+            "data": {
+                "connectors": [
+                    "b6a6ee",
+                    "9b2620",
+                    "b74495"
+                ],
+                "question": {
+                    "options": [
+                        "Si 😃",
+                        "No gracias 😁"
+                    ],
+                    "type": "multiple",
+                    "text": "Te podemos ayudar en algo mas?!! 😃"
+                },
+                "saveResponse": {
+                    "field": null,
+                    "variable": "mi_respuesta_variable",
+                    "tag": false
+                },
+                "timeout": {
+                    "value": 20,
+                    "unit": "minutes"
+                }
+            },
+            "parentId": "d31e6c"
+        },
+        {
+            "name": "Success",
+            "id": "b6a6ee",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "success"
+            },
+            "parentId": "9ac18e"
+        },
+        {
+            "name": "Failure: Invalid",
+            "id": "9b2620",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "failure"
+            },
+            "parentId": "9ac18e"
+        },
+        {
+            "name": "Enviar un mensaje #16",
+            "id": "c16e2a",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Gracias por mandarnos los datos que pedimos pronto nos estaremos comunicando contigo 😁"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "9b2620"
+        },
+        {
+            "name": "Esperar #3",
+            "id": "455142",
+            "type": "wait",
+            "data": {
+                "value": 1,
+                "unit": "seconds"
+            },
+            "parentId": "53a123"
+        },
+        {
+            "name": "Hacer una pregunta #4",
+            "id": "4f599e",
+            "type": "askQuestion",
+            "data": {
+                "connectors": [
+                    "72db41",
+                    "9e7cdd",
+                    "b815f2"
+                ],
+                "question": {
+                    "options": [
+                        "Si quiero 😃",
+                        "No muchas gracias 😃"
+                    ],
+                    "type": "multiple",
+                    "text": "¿Quieres saber alguna otra cosa?!! 😃"
+                },
+                "saveResponse": {
+                    "field": null,
+                    "variable": "variable_respuesta",
+                    "tag": false
+                },
+                "timeout": {
+                    "value": 20,
+                    "unit": "minutes"
+                }
+            },
+            "parentId": "455142"
+        },
+        {
+            "name": "Success",
+            "id": "72db41",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "success"
+            },
+            "parentId": "4f599e"
+        },
+        {
+            "name": "Failure: Invalid",
+            "id": "9e7cdd",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "failure"
+            },
+            "parentId": "4f599e"
+        },
+        {
+            "name": "Enviar un mensaje #17",
+            "id": "a559ab",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Lo siento 😅, no entendí tu respuesta. Por favor escribe Sí o No."
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "9e7cdd"
+        },
+        {
+            "name": "Esperar #4",
+            "id": "e31058",
+            "type": "wait",
+            "data": {
+                "value": 1,
+                "unit": "seconds"
+            },
+            "parentId": "7b46f5"
+        },
+        {
+            "name": "Hacer una pregunta #5",
+            "id": "2526f7",
+            "type": "askQuestion",
+            "data": {
+                "connectors": [
+                    "bcdcda",
+                    "c6fabe",
+                    "9bcbac"
+                ],
+                "question": {
+                    "options": [
+                        "Sí 😉",
+                        "No muchas gracias 😃"
+                    ],
+                    "type": "multiple",
+                    "text": "Quieres saber algo mas?!! 😃"
+                },
+                "saveResponse": {
+                    "field": null,
+                    "variable": "Variable_mi_respuesta",
+                    "tag": false
+                },
+                "timeout": {
+                    "value": 20,
+                    "unit": "minutes"
+                }
+            },
+            "parentId": "e31058"
+        },
+        {
+            "name": "Success",
+            "id": "bcdcda",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "success"
+            },
+            "parentId": "2526f7"
+        },
+        {
+            "name": "Failure: Invalid",
+            "id": "c6fabe",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "failure"
+            },
+            "parentId": "2526f7"
+        },
+        {
+            "name": "Enviar un mensaje #18",
+            "id": "bbccdf",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Gracias por mandarnos los datos que pedimos pronto nos estaremos comunicando contigo 😁"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "c6fabe"
+        },
+        {
+            "name": "Esperar #5",
+            "id": "358b94",
+            "type": "wait",
+            "data": {
+                "value": 1,
+                "unit": "seconds"
+            },
+            "parentId": "64ebfc"
+        },
+        {
+            "name": "Hacer una pregunta #6",
+            "id": "1c2fbc",
+            "type": "askQuestion",
+            "data": {
+                "connectors": [
+                    "e585d1",
+                    "f277b8",
+                    "b4eaf0"
+                ],
+                "question": {
+                    "options": [
+                        "Si por favor 😃",
+                        "No muchas gracias 😃"
+                    ],
+                    "type": "multiple",
+                    "text": "Quieres volver a ver la información de opciones anteriores?"
+                },
+                "saveResponse": {
+                    "field": null,
+                    "variable": "respuesta_opcion",
+                    "tag": false
+                },
+                "timeout": {
+                    "value": 20,
+                    "unit": "minutes"
+                }
+            },
+            "parentId": "358b94"
+        },
+        {
+            "name": "Success",
+            "id": "e585d1",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "success"
+            },
+            "parentId": "1c2fbc"
+        },
+        {
+            "name": "Failure: Invalid",
+            "id": "f277b8",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "failure"
+            },
+            "parentId": "1c2fbc"
+        },
+        {
+            "name": "Enviar un mensaje #19",
+            "id": "7e5884",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Lo siento 😅, no entendí tu respuesta. Por favor escribe Sí o No"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "f277b8"
+        },
+        {
+            "name": "Failure: Timeout",
+            "id": "b74495",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "timeout"
+            },
+            "parentId": "9ac18e"
+        },
+        {
+            "name": "Enviar un mensaje #20",
+            "id": "d596f6",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Parece que la conversación ha quedado inactiva. Si necesitas algo más, no dudes en contactarnos de nuevo 😥"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "b74495"
+        },
+        {
+            "name": "Cerrar conversación #2",
+            "id": "c02508",
+            "type": "closeConversation",
+            "data": {
+                "category": "Soporte",
+                "summary": "Cierre por inactividad"
+            },
+            "parentId": "d596f6"
+        },
+        {
+            "name": "Failure: Timeout",
+            "id": "b815f2",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "timeout"
+            },
+            "parentId": "4f599e"
+        },
+        {
+            "name": "Enviar un mensaje #21",
+            "id": "d696ad",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Parece que la conversación ha quedado inactiva. Si necesitas algo más, no dudes en contactarnos de nuevo 😥"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "b815f2"
+        },
+        {
+            "name": "Cerrar conversación #3",
+            "id": "7a70fe",
+            "type": "closeConversation",
+            "data": {
+                "category": "Soporte",
+                "summary": "Cierre por inactividad"
+            },
+            "parentId": "d696ad"
+        },
+        {
+            "name": "Failure: Timeout",
+            "id": "9bcbac",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "timeout"
+            },
+            "parentId": "2526f7"
+        },
+        {
+            "name": "Enviar un mensaje #22",
+            "id": "8789ce",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Parece que la conversación ha quedado inactiva. Si necesitas algo más, no dudes en contactarnos de nuevo 😥"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "9bcbac"
+        },
+        {
+            "name": "Cerrar conversación #4",
+            "id": "d701da",
+            "type": "closeConversation",
+            "data": {
+                "category": "Soporte",
+                "summary": "Cierre por inactividad"
+            },
+            "parentId": "8789ce"
+        },
+        {
+            "name": "Failure: Timeout",
+            "id": "b4eaf0",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "timeout"
+            },
+            "parentId": "1c2fbc"
+        },
+        {
+            "name": "Cerrar conversación #5",
+            "id": "816da6",
+            "type": "closeConversation",
+            "data": {
+                "category": "Soporte",
+                "summary": "Cierre por inactividad"
+            },
+            "parentId": "350585"
+        },
+        {
+            "name": "Enviar un mensaje #23",
+            "id": "350585",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Parece que la conversación ha quedado inactiva. Si necesitas algo más, no dudes en contactarnos de nuevo 😥"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "b4eaf0"
+        },
+        {
+            "name": "Enviar un mensaje #25",
+            "id": "6e5452",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Una vez que haya completado todos los datos solicitados, podrá disfrutar correctamente de la demostración. 😁"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "301b89"
+        },
+        {
+            "name": "Esperar #6",
+            "id": "457473",
+            "type": "wait",
+            "data": {
+                "value": 1,
+                "unit": "seconds"
+            },
+            "parentId": "6e5452"
+        },
+        {
+            "name": "Hacer una pregunta #7",
+            "id": "54328f",
+            "type": "askQuestion",
+            "data": {
+                "connectors": [
+                    "f1413f",
+                    "ba9825",
+                    "1f2be9"
+                ],
+                "question": {
+                    "options": [
+                        "SI 😃",
+                        "No muchas gracias."
+                    ],
+                    "type": "multiple",
+                    "text": "Quieres saber algo mas?!! 😃"
+                },
+                "saveResponse": {
+                    "field": null,
+                    "variable": "Pregunta_variable_siete",
+                    "tag": false
+                },
+                "timeout": {
+                    "value": 20,
+                    "unit": "minutes"
+                }
+            },
+            "parentId": "457473"
+        },
+        {
+            "name": "Success",
+            "id": "f1413f",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "success"
+            },
+            "parentId": "54328f"
+        },
+        {
+            "name": "Failure: Invalid",
+            "id": "ba9825",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "failure"
+            },
+            "parentId": "54328f"
+        },
+        {
+            "name": "Failure: Timeout",
+            "id": "1f2be9",
+            "type": "askQuestionConnector",
+            "data": {
+                "connectorType": "timeout"
+            },
+            "parentId": "54328f"
+        },
+        {
+            "name": "Enviar un mensaje #26",
+            "id": "65c815",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Lo siento 😅, no entendí tu respuesta. Por favor escribe Sí o No"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "ba9825"
+        },
+        {
+            "name": "Enviar un mensaje #27",
+            "id": "23c86d",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Parece que la conversación ha quedado inactiva. Si necesitas algo más, no dudes en contactarnos de nuevo 😥"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "1f2be9"
+        },
+        {
+            "name": "Cerrar conversación #6",
+            "id": "e22b99",
+            "type": "closeConversation",
+            "data": {
+                "category": "Soporte",
+                "summary": "Cierre por inactividad"
+            },
+            "parentId": "23c86d"
+        },
+        {
+            "name": "Objetivo de IA #1",
+            "id": "e5dcfa",
+            "type": "aiAgent",
+            "data": {
+                "connectors": [
+                    "fd6241",
+                    "b7e2a7",
+                    "fe995a",
+                    "672c6d"
+                ],
+                "payload": {
+                    "knowledgeSourceIds": [
+                        30210
+                    ],
+                    "instructions": "You are instructed to answer questions based on the knowledge source(s) assigned. After providing all the necessary responses, you should ask whether the customer needs further assistance or has any additional questions. You will follow the customer's language preferences to communicate effectively. If the customer uses a specific language or terminology, follow their preferences to ensure clear understanding.",
+                    "persona": "Eres un chatbot de atención al cliente experto y paciente, y necesitas responder a las personas de forma amable y respetuosa: con un tono amable, anticipándote a las necesidades, validando la información, siendo transparente sobre las limitaciones y usando un lenguaje afirmativo. Si el usuario indica \"agente\" o \"hablar con un agente\", no respondas. En su lugar, permite que el flujo de trabajo continúe. Debes enviar un mensaje de cierre: \"Cuando el usuario diga gracias, o cuando diga que no, muchas gracias o simplemente no, no le respondas en inglés respóndeles en español y no respondas cosas que no estan en las fuentes de conocimiento.\n",
+                    "type": "answer_question",
+                    "useSnippet": false,
+                    "useModelKb": false
+                },
+                "timeout": {
+                    "value": 20,
+                    "unit": "minutes"
+                }
+            },
+            "parentId": "1f79ec"
+        },
+        {
+            "name": "Success",
+            "id": "fd6241",
+            "type": "aiAgentConnector",
+            "data": {
+                "connectorType": "success"
+            },
+            "parentId": "e5dcfa"
+        },
+        {
+            "name": "Failure: Others",
+            "id": "b7e2a7",
+            "type": "aiAgentConnector",
+            "data": {
+                "connectorType": "failure"
+            },
+            "parentId": "e5dcfa"
+        },
+        {
+            "name": "Failure: Idle",
+            "id": "fe995a",
+            "type": "aiAgentConnector",
+            "data": {
+                "connectorType": "timeout"
+            },
+            "parentId": "e5dcfa"
+        },
+        {
+            "name": "Enviar un mensaje #33",
+            "id": "b90428",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Parece que la conversación ha quedado inactiva. Si necesitas algo más, no dudes en contactarnos de nuevo 😥"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "fe995a"
+        },
+        {
+            "name": "Cerrar conversación #7",
+            "id": "f91c6a",
+            "type": "closeConversation",
+            "data": {
+                "category": "Soporte",
+                "summary": "Cierre por despedida"
+            },
+            "parentId": "fd6241"
+        },
+        {
+            "name": "Enviar un mensaje #34",
+            "id": "9faf40",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Por favor selecciona una de las opciones que se dieron anterior. 😁"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "8909f9"
+        },
+        {
+            "name": "Rama 1",
+            "id": "1f79ec",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$or": [
+                        {
+                            "category": "variable",
+                            "field": "Agentes",
+                            "value": "Bot 🤖",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "84df3f"
+        },
+        {
+            "name": "Rama 2",
+            "id": "e5cd16",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "variable",
+                            "field": "Agentes",
+                            "value": "Agente",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "84df3f"
+        },
+        {
+            "name": "Else",
+            "id": "8909f9",
+            "type": "branchConnector",
+            "data": {
+                "conditions": null
+            },
+            "parentId": "84df3f"
+        },
+        {
+            "name": "Rama #8",
+            "id": "8c04c7",
+            "type": "branch",
+            "data": {
+                "connectors": [
+                    "ac9595",
+                    "72e9b5",
+                    "389105"
+                ]
+            },
+            "parentId": "b6a6ee"
+        },
+        {
+            "name": "Rama 1",
+            "id": "ac9595",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "variable",
+                            "field": "mi_respuesta_variable",
+                            "value": "Si 😃",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "8c04c7"
+        },
+        {
+            "name": "Rama 2",
+            "id": "389105",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "variable",
+                            "field": "mi_respuesta_variable",
+                            "value": "No gracias 😁",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "8c04c7"
+        },
+        {
+            "name": "Else",
+            "id": "72e9b5",
+            "type": "branchConnector",
+            "data": {
+                "conditions": null
+            },
+            "parentId": "8c04c7"
+        },
+        {
+            "name": "Saltar a otro paso #11",
+            "id": "c4f355",
+            "type": "jumpTo",
+            "data": {
+                "stepId": "e8a3d5",
+                "maxJumps": 1
+            },
+            "parentId": "ac9595"
+        },
+        {
+            "name": "Enviar un mensaje #35",
+            "id": "e8f046",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Gracias por tu tiempo, fue un placer atenderte. Recuerda que estamos a tu servicio para lo que necesites. 😁"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "389105"
+        },
+        {
+            "name": "Cerrar conversación #8",
+            "id": "1a2249",
+            "type": "closeConversation",
+            "data": {
+                "category": "Soporte",
+                "summary": "Cierre por despedida"
+            },
+            "parentId": "e8f046"
+        },
+        {
+            "name": "Rama #9",
+            "id": "7d159b",
+            "type": "branch",
+            "data": {
+                "connectors": [
+                    "2cc289",
+                    "8af678",
+                    "888d03"
+                ]
+            },
+            "parentId": "72db41"
+        },
+        {
+            "name": "Rama 1",
+            "id": "2cc289",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "variable",
+                            "field": "variable_respuesta",
+                            "value": "Si quiero 😃",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "7d159b"
+        },
+        {
+            "name": "Rama 2",
+            "id": "888d03",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "variable",
+                            "field": "variable_respuesta",
+                            "value": "No muchas gracias 😃",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "7d159b"
+        },
+        {
+            "name": "Else",
+            "id": "8af678",
+            "type": "branchConnector",
+            "data": {
+                "conditions": null
+            },
+            "parentId": "7d159b"
+        },
+        {
+            "name": "Saltar a otro paso #12",
+            "id": "667312",
+            "type": "jumpTo",
+            "data": {
+                "stepId": "e8a3d5",
+                "maxJumps": 1
+            },
+            "parentId": "2cc289"
+        },
+        {
+            "name": "Enviar un mensaje #36",
+            "id": "6da21e",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Gracias por tu tiempo, fue un placer atenderte. Recuerda que estamos a tu servicio para lo que necesites. 😁"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "888d03"
+        },
+        {
+            "name": "Cerrar conversación #9",
+            "id": "5cdbdd",
+            "type": "closeConversation",
+            "data": {
+                "category": "Soporte",
+                "summary": "Cierre por despedida"
+            },
+            "parentId": "6da21e"
+        },
+        {
+            "name": "Enviar un mensaje #37",
+            "id": "2516b9",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "\"¡Gracias por contactarnos! 😁 Nuestro horario de atención es de lunes a viernes, de 8:00 a.m. a 5:00 p.m. Fuera de este horario, con gusto te responderemos lo antes posible."
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "6749c7"
+        },
+        {
+            "name": "Rama #10",
+            "id": "ce3efe",
+            "type": "branch",
+            "data": {
+                "connectors": [
+                    "4bd3d8",
+                    "7a162a",
+                    "8d0a40"
+                ]
+            },
+            "parentId": "bcdcda"
+        },
+        {
+            "name": "Rama 1",
+            "id": "4bd3d8",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "variable",
+                            "field": "Variable_mi_respuesta",
+                            "value": "Sí 😉",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "ce3efe"
+        },
+        {
+            "name": "Rama 2",
+            "id": "8d0a40",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "variable",
+                            "field": "Variable_mi_respuesta",
+                            "value": "No muchas gracias 😃",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "ce3efe"
+        },
+        {
+            "name": "Else",
+            "id": "7a162a",
+            "type": "branchConnector",
+            "data": {
+                "conditions": null
+            },
+            "parentId": "ce3efe"
+        },
+        {
+            "name": "Saltar a otro paso #13",
+            "id": "a9164d",
+            "type": "jumpTo",
+            "data": {
+                "stepId": "e8a3d5",
+                "maxJumps": 1
+            },
+            "parentId": "4bd3d8"
+        },
+        {
+            "name": "Enviar un mensaje #38",
+            "id": "232375",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Gracias por tu tiempo, fue un placer atenderte. Recuerda que estamos a tu servicio para lo que necesites. 😁"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "8d0a40"
+        },
+        {
+            "name": "Cerrar conversación #10",
+            "id": "8a3fcf",
+            "type": "closeConversation",
+            "data": {
+                "category": "Soporte",
+                "summary": "Cierre por despedida"
+            },
+            "parentId": "232375"
+        },
+        {
+            "name": "Rama #11",
+            "id": "b659b8",
+            "type": "branch",
+            "data": {
+                "connectors": [
+                    "a0bf50",
+                    "a5d00b",
+                    "cf729a"
+                ]
+            },
+            "parentId": "f1413f"
+        },
+        {
+            "name": "Rama 1",
+            "id": "a0bf50",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "variable",
+                            "field": "Pregunta_variable_siete",
+                            "value": "SI 😃",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "b659b8"
+        },
+        {
+            "name": "Rama 2",
+            "id": "cf729a",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "variable",
+                            "field": "Pregunta_variable_siete",
+                            "value": "No muchas gracias.",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "b659b8"
+        },
+        {
+            "name": "Else",
+            "id": "a5d00b",
+            "type": "branchConnector",
+            "data": {
+                "conditions": null
+            },
+            "parentId": "b659b8"
+        },
+        {
+            "name": "Enviar un mensaje #39",
+            "id": "6567aa",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Gracias por tu tiempo, fue un placer atenderte. Recuerda que estamos a tu servicio para lo que necesites. 😁"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "cf729a"
+        },
+        {
+            "name": "Saltar a otro paso #14",
+            "id": "7a1ad8",
+            "type": "jumpTo",
+            "data": {
+                "stepId": "e8a3d5",
+                "maxJumps": 1
+            },
+            "parentId": "a0bf50"
+        },
+        {
+            "name": "Cerrar conversación #11",
+            "id": "03e078",
+            "type": "closeConversation",
+            "data": {
+                "category": "Soporte",
+                "summary": "Cierre por despedida"
+            },
+            "parentId": "6567aa"
+        },
+        {
+            "name": "Rama #12",
+            "id": "b00be7",
+            "type": "branch",
+            "data": {
+                "connectors": [
+                    "7d7767",
+                    "3c7239",
+                    "43abd2"
+                ]
+            },
+            "parentId": "e585d1"
+        },
+        {
+            "name": "Rama 1",
+            "id": "7d7767",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "variable",
+                            "field": "respuesta_opcion",
+                            "value": "Si por favor 😃",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "b00be7"
+        },
+        {
+            "name": "Rama 2",
+            "id": "43abd2",
+            "type": "branchConnector",
+            "data": {
+                "conditions": {
+                    "$and": [
+                        {
+                            "category": "variable",
+                            "field": "respuesta_opcion",
+                            "value": "No muchas gracias 😃",
+                            "operator": "isEqualTo"
+                        }
+                    ]
+                }
+            },
+            "parentId": "b00be7"
+        },
+        {
+            "name": "Else",
+            "id": "3c7239",
+            "type": "branchConnector",
+            "data": {
+                "conditions": null
+            },
+            "parentId": "b00be7"
+        },
+        {
+            "name": "Enviar un mensaje #40",
+            "id": "4e63c4",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Gracias por tu tiempo, fue un placer atenderte. Recuerda que estamos a tu servicio para lo que necesites. 😁"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "43abd2"
+        },
+        {
+            "name": "Saltar a otro paso #15",
+            "id": "9c7cac",
+            "type": "jumpTo",
+            "data": {
+                "stepId": "e8a3d5",
+                "maxJumps": 1
+            },
+            "parentId": "7d7767"
+        },
+        {
+            "name": "Cerrar conversación #12",
+            "id": "345f20",
+            "type": "closeConversation",
+            "data": {
+                "category": "Soporte",
+                "summary": "Cierre por despedida"
+            },
+            "parentId": "4e63c4"
+        },
+        {
+            "name": "Enviar un mensaje #41",
+            "id": "301b89",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "https://get.respond.io/u5putss5g9to"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "c06121"
+        },
+        {
+            "name": "Handle Unanswered Question",
+            "id": "672c6d",
+            "type": "aiAgentConnector",
+            "data": {
+                "connectorType": "aiAgentFailureCannotAnswer"
+            },
+            "parentId": "e5dcfa"
+        },
+        {
+            "name": "Cerrar conversación #13",
+            "id": "1a62f6",
+            "type": "closeConversation",
+            "data": {
+                "category": "Soporte",
+                "summary": "Cierre por inactividad"
+            },
+            "parentId": "b90428"
+        },
+        {
+            "name": "Enviar un mensaje #42",
+            "id": "4a40d6",
+            "type": "sendMessage",
+            "data": {
+                "connectors": [],
+                "payload": [
+                    {
+                        "message": {
+                            "type": "text",
+                            "text": "Disculpa, no tengo la información sobre ese tema. Me gustaría ayudarte más respondiéndote cosas sobre respond.io 😁"
+                        }
+                    }
+                ],
+                "channelId": null
+            },
+            "parentId": "672c6d"
+        },
+        {
+            "name": "Cerrar conversación #14",
+            "id": "710caf",
+            "type": "closeConversation",
+            "data": {
+                "category": "Soporte",
+                "summary": "Cierre por informacion"
+            },
+            "parentId": "4a40d6"
+        },
+        {
+            "name": "Saltar a otro paso #16",
+            "id": "d0357b",
+            "type": "jumpTo",
+            "data": {
+                "stepId": "3a6dc5",
+                "maxJumps": 1
+            },
+            "parentId": "9faf40"
+        },
+        {
+            "name": "Saltar a otro paso #17",
+            "id": "2b7aa3",
+            "type": "jumpTo",
+            "data": {
+                "stepId": "9ac18e",
+                "maxJumps": 1
+            },
+            "parentId": "c16e2a"
+        },
+        {
+            "name": "Saltar a otro paso #18",
+            "id": "ed4cb7",
+            "type": "jumpTo",
+            "data": {
+                "stepId": "4f599e",
+                "maxJumps": 1
+            },
+            "parentId": "a559ab"
+        },
+        {
+            "name": "Saltar a otro paso #19",
+            "id": "eaad28",
+            "type": "jumpTo",
+            "data": {
+                "stepId": "2526f7",
+                "maxJumps": 1
+            },
+            "parentId": "bbccdf"
+        },
+        {
+            "name": "Saltar a otro paso #20",
+            "id": "e7960d",
+            "type": "jumpTo",
+            "data": {
+                "stepId": "54328f",
+                "maxJumps": 1
+            },
+            "parentId": "65c815"
+        },
+        {
+            "name": "Saltar a otro paso #21",
+            "id": "6755c9",
+            "type": "jumpTo",
+            "data": {
+                "stepId": "1c2fbc",
+                "maxJumps": 1
+            },
+            "parentId": "7e5884"
+        }
+    ]
+}
